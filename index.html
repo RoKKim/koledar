@@ -11,17 +11,28 @@
 <body>
 <div class="container">
     <div id="koledar" class="koledar">
-        <div class="koledar_header">
-            <button type="button">
-                <span>‹</span>
-            </button>
-            <div class="koledar_header_label"></div>
-            <button type="button">
-                <span>›</span>
-            </button>
+        <label for="mesec_select">Izbira meseca:</label>
+        <select name="mesec_select" id="mesec_select"></select>
+
+        <label for="leto_input">Leto:</label>
+        <input type="number" name="leto_input" id="leto_input"/>
+
+        <label for="datum_input">Izbira datuma:</label>
+        <input name="datum_input" id="datum_input"/>
+
+        <div class="koledar_body">
+            <div class="koledar_header">
+                <button type="button" id="prejsni_mesec">
+                    <span>‹</span>
+                </button>
+                <div class="koledar_header_label"></div>
+                <button type="button" id="naslednji_mesec">
+                    <span>›</span>
+                </button>
+            </div>
+            <div class="koledar_teden"></div>
+            <div class="koledar_datumi"></div>
         </div>
-        <div class="koledar_teden"></div>
-        <div class="koledar_datumi"></div>
     </div>
 </div>
 </body>

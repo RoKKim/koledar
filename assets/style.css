@@ -14,7 +14,9 @@ body {
     text-align: center;
 }
 
-.koledar {
+.koledar_body {
+    display: none;
+    outline: 0;
     width: 350px;
     margin: 0 auto;
     border-radius: var(--border_radius);
@@ -42,6 +44,7 @@ body {
     background: none;
     border: 0;
     cursor: pointer;
+    outline: 0;
 }
 
 .koledar .koledar_teden {

@@ -1,10 +1,45 @@
 let Koledar = function(options) {
     const init = function() {
         options.danasnjiDatum = novDatum();
-        options.mesec_label = options.container.querySelector('.koledar_header_label');
+        options.datum = novDatum();
+        options.mesecLabel = options.container.querySelector('.koledar_header_label');
 
+        options.container.querySelector('#prejsni_mesec').addEventListener("click", function(){
+            options.datum.setMonth(options.datum.getMonth() - 1);
+            ustvariMesec();
+        });
+        options.container.querySelector('#naslednji_mesec').addEventListener("click", function(){
+            options.datum.setMonth(options.datum.getMonth() + 1);
+            ustvariMesec();
+        });
+        options.container.querySelector('#mesec_select').addEventListener("change", function(){
+            ustvariMesec();
+        });
+        options.container.querySelector('#mesec_select').addEventListener("change", function(){
+            options.datum.setMonth(options.meseci.indexOf(this.value));
+            ustvariMesec();
+        });
+        options.container.querySelector('#leto_input').addEventListener("change", function(){
+            options.datum.setFullYear(this.value);
+            ustvariMesec();
+        });
+        options.container.querySelector('#datum_input').addEventListener("change", function(){
+            options.datum = new Date(this.value.split('.')[2], this.value.split('.')[1] - 1, this.value.split('.')[0]);
+            ustvariMesec();
+        });
+
+        nastaviIzbiroMeseca();
         nastaviKoledarHeader();
-        ustvariMesec();
+        ustvariMesec(options.datum.getMonth());
+    }
+
+    const nastaviIzbiroMeseca = function() {
+        options.meseci.forEach((mesec) => {
+            let mesecOption = document.createElement('option');
+            mesecOption.textContent = mesec;
+
+            options.container.querySelector('#mesec_select').appendChild(mesecOption);
+        })
     }
 
     const novDatum = function() {
@@ -17,18 +52,17 @@ let Koledar = function(options) {
     const ustvariDan = function(datum) {
         let datumDiv = document.createElement('div');
         let datumSpan = document.createElement('span');
-        datumSpan.innerHTML = datum.getDate();
+        datumSpan.textContent = datum.getDate();
         datumDiv.className = 'datum';
 
         // ce je datum nedelja, mu nastavimo poseben class
         if (datum.getDay() === 0) {
-            console.log('aaa')
             datumDiv.classList.add('datum_nedelja');
         }
         // prvemu datumu v mesecu dodamo odmik, da ga poravnamo z dnevom v tednu
         if (datum.getDate() === 1) {
             // ker getDay() vrne nedeljo kot 0, jo z ali operatorjem nadomestimo z 7
-            datumDiv.style.marginLeft = ((datum.getDay() || 7 - 1) * 100 / 7) + '%';
+            datumDiv.style.marginLeft = (((datum.getDay() || 7) - 1) * 100 / 7) + '%';
         }
         // ce je datum enak danasnjemu, mu nastavimo poseben class
         if (datum.getTime() === options.danasnjiDatum.getTime()) {
@@ -40,28 +74,30 @@ let Koledar = function(options) {
     }
 
     const ustvariMesec = function() {
-        options.mesec_label.innerHTML = options.meseci[options.danasnjiDatum.getMonth()] + ' ' + options.danasnjiDatum.getFullYear();
+        // preden ustvarimo dneve meseca, je potrebno resetirati trenutne
+        options.container.querySelector('.koledar_datumi').innerHTML = '';
 
-        let datum = novDatum();
+        options.mesecLabel.textContent = options.meseci[options.datum.getMonth()] + ' ' + options.datum.getFullYear();
+
         // dneve izpisujemo od prvega dneva meseca dalje
-        datum.setDate(1);
+        options.datum.setDate(1);
 
-        let trenutniMesec = datum.getMonth();
         // zanka gre cez vse dneve v mesecu
-        while (datum.getMonth() === trenutniMesec) {
-            ustvariDan(datum);
-            datum.setDate(datum.getDate() + 1);
+        for (let i = new Date(options.datum.getTime()); i.getMonth() === options.datum.getMonth(); i.setDate(i.getDate() + 1)) {
+            ustvariDan(i);
         }
     }
 
     const nastaviKoledarHeader = function() {
         options.dnevi.forEach((dan) => {
             let danSpan = document.createElement('span');
-            danSpan.innerHTML = dan;
+            danSpan.textContent = dan;
 
             options.container.querySelector('.koledar_teden').appendChild(danSpan);
-        })
+        });
     }
+
+    // todo remove listeners when calendar closed
 
     init();
 }
