@@ -3,7 +3,7 @@
 :root {
     --border_radius: 7px;
     --border_color: #e7e9ed;
-    --danes_bg_color: #e7e9ed;
+    --danes_bg_color: #eaebee;
     --danes_text_color: #333;
     --bg_color: #e2791b;
 }
@@ -66,5 +66,14 @@ body {
     flex: 0 calc(100% / 7);
     border-radius: var(--border_radius);
 }
+
+.koledar .koledar_datumi .datum_danes {
+    background-color: var(--danes_bg_color);
+}
+
+.koledar .koledar_datumi .datum_nedelja {
+    color: #fa6511;
+}
+
 
 
