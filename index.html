@@ -12,15 +12,22 @@
 <div class="container">
     <div id="koledar" class="koledar">
         <label for="mesec_select">Izbira meseca:</label>
-        <select name="mesec_select" id="mesec_select"></select>
+        <select name="mesec_select" id="mesec_select">
+            <option value="" selected disabled hidden>Izbira meseca</option>
+        </select>
 
         <label for="leto_input">Leto:</label>
-        <input type="number" name="leto_input" id="leto_input"/>
+        <input type="number" name="leto_input" id="leto_input" placeholder="Leto"/>
+        <p id="leto_input_invalid" class="invalid_message">Leto mora biti večje od 1000!</p>
 
         <label for="datum_input">Izbira datuma:</label>
-        <input name="datum_input" id="datum_input"/>
+        <input name="datum_input" id="datum_input" placeholder="Izbira datuma"/>
+        <p id="datum_input_invalid" class="invalid_message">Datum mora biti podan v obliki dd.mm.yyyy!</p>
 
-        <input type="file" id="file_selector">
+        <div class="nalozi_btn_wrapper">
+            <button class="nalozi_btn">Naloži datoteko s prazniki</button>
+            <input type="file" id="nalozi_btn">
+        </div>
 
         <div class="koledar_body">
             <div class="koledar_header">

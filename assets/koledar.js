@@ -1,5 +1,7 @@
 let Koledar = function(options) {
     let prazniki = [];
+    const regexLeto = RegExp(/^\d{4}$/);
+    const regexDatum = RegExp(/^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/);
 
     const init = function() {
         options.danasnjiDatum = novDatum();
@@ -16,42 +18,52 @@ let Koledar = function(options) {
         options.container.querySelector('#zapri_koledar').addEventListener("click", function(){
             options.container.querySelector('.koledar_body').style.display = "none";
         });
-        options.container.querySelector('#file_selector').addEventListener("change", (event) => {
-            preberiDatoteko(event.target.files[0], function(zapisi) {
-                zapisi.forEach((zapis) => {
-                    let praznik = {};
-                    zapis = zapis.split(';');
-                    praznik.datum = zapis[0].split('.');
-                    praznik.datum  = new Date(praznik.datum[2], praznik.datum[1] - 1, praznik.datum[0]);
-                    // trim da se znebimo whitespace karakterjev
-                    praznik.ponavljajoc = zapis[1].trim() === 'X';
-
-                    prazniki.push(praznik);
-                })
-
-                ustvariMesec();
-            });
-        });
-
         options.container.querySelector('#mesec_select').addEventListener("change", function(){
             options.datum.setMonth(options.meseci.indexOf(this.value));
             ustvariMesec();
-            options.container.querySelector('.koledar_body').style.display = "block";
         });
         options.container.querySelector('#leto_input').addEventListener("change", function(){
+            if (regexLeto.test(this.value)) {
+                inputRemoveInvalid('#leto_input', '#leto_input_invalid');
+
+                options.datum.setFullYear(this.value);
+                ustvariMesec();
+            } else {
+                inputAddInvalid('#leto_input', '#leto_input_invalid');
+            }
+
             options.datum.setFullYear(this.value);
             ustvariMesec();
-            options.container.querySelector('.koledar_body').style.display = "block";
         });
         options.container.querySelector('#datum_input').addEventListener("change", function(){
-            options.datum = new Date(this.value.split('.')[2], this.value.split('.')[1] - 1, this.value.split('.')[0]);
-            ustvariMesec();
-            options.container.querySelector('.koledar_body').style.display = "block";
+            if (regexDatum.test(this.value)) {
+                inputRemoveInvalid('#datum_input', '#datum_input_invalid');
+
+                options.datum = new Date(this.value.split('.')[2], this.value.split('.')[1] - 1, this.value.split('.')[0]);
+                ustvariMesec();
+            } else {
+                inputAddInvalid('#datum_input', '#datum_input_invalid');
+            }
+        });
+        options.container.querySelector('#nalozi_btn').addEventListener("change", (event) => {
+            preberiDatoteko(event.target.files[0], function(zapisi) {
+                formatirajPraznike(zapisi);
+            });
         });
 
         nastaviIzbiroMeseca();
         nastaviDneveTedna();
         ustvariMesec();
+    }
+
+    function inputAddInvalid(selectorInput, selectorInvalid) {
+        options.container.querySelector(selectorInput).classList.add('invalid_input');
+        options.container.querySelector(selectorInvalid).style.display = "block";
+    }
+
+    function inputRemoveInvalid(selectorInput, selectorInvalid) {
+        options.container.querySelector(selectorInput).classList.remove('invalid_input');
+        options.container.querySelector(selectorInvalid).style.display = "none";
     }
 
     function preberiDatoteko(datoteka, callback) {
@@ -65,6 +77,21 @@ let Koledar = function(options) {
         reader.onerror = function() {
             console.log(reader.error);
         };
+    }
+
+    function formatirajPraznike(zapisi) {
+        zapisi.forEach((zapis) => {
+            let praznik = {};
+            zapis = zapis.split(';');
+            praznik.datum = zapis[0].split('.');
+            praznik.datum  = new Date(praznik.datum[2], praznik.datum[1] - 1, praznik.datum[0]);
+            // trim da se znebimo whitespace karakterjev
+            praznik.ponavljajoc = zapis[1].trim() === 'X';
+
+            prazniki.push(praznik);
+        });
+
+        ustvariMesec();
     }
 
     const nastaviIzbiroMeseca = function() {
@@ -92,7 +119,7 @@ let Koledar = function(options) {
         return datum;
     }
 
-    const ustvariDan = function(datum) {
+    const ustvariDatum = function(datum) {
         let datumDiv = document.createElement('div');
         let datumSpan = document.createElement('span');
         datumSpan.textContent = datum.getDate();
@@ -123,6 +150,10 @@ let Koledar = function(options) {
             }
         })
 
+        datumDiv.addEventListener('click', function () {
+            console.log('aaa')
+        })
+
         datumDiv.appendChild(datumSpan);
         options.container.querySelector('.koledar_datumi').appendChild(datumDiv);
     }
@@ -135,11 +166,14 @@ let Koledar = function(options) {
         options.datum.setDate(1);
         // zanka gre cez vse dneve v mesecu
         for (let i = new Date(options.datum.getTime()); i.getMonth() === options.datum.getMonth(); i.setDate(i.getDate() + 1)) {
-            ustvariDan(i);
+            ustvariDatum(i);
         }
 
         // nastavimo se label v headerju
         options.container.querySelector('.koledar_header_label').textContent = options.meseci[options.datum.getMonth()] +' ' + options.datum.getFullYear();
+
+        // prikazemo koledar, ce seveda se ni
+        options.container.querySelector('.koledar_body').style.display = "block";
     }
 
     // todo remove listeners when calendar closed

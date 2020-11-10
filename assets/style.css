@@ -2,10 +2,9 @@
 
 :root {
     --border_radius: 7px;
-    --border_color: #e7e9ed;
-    --danes_bg_color: #eaebee;
-    --danes_text_color: #333;
+    --border_color: #d9d9d9;
     --bg_color: #e2791b;
+    --invalid_color: #dc3545;
 }
 
 body {
@@ -14,13 +13,29 @@ body {
     text-align: center;
 }
 
+.invalid_input {
+    border: solid 1px var(--invalid_color) !important;
+}
+
+.invalid_message {
+    font-size: 0.9rem;
+    color: var(--invalid_color);
+    font-weight: 400;
+    display: none;
+}
+
+.koledar {
+    width: 350px;
+    margin: 10px auto 0;
+}
+
 .koledar_body {
     display: block;
     outline: 0;
-    width: 350px;
-    margin: 10px auto 0;
+    margin-top: 15px;
     border-radius: var(--border_radius);
     border: solid 1px var(--border_color);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.04);
 }
 
 .koledar .koledar_header {
@@ -87,7 +102,8 @@ body {
 }
 
 .koledar .koledar_datumi .datum_danes {
-    background-color: var(--danes_bg_color);
+    color: #333333;
+    background-color: #eaebee;
 }
 
 .koledar .koledar_datumi .datum_nedelja {
@@ -98,5 +114,46 @@ body {
     color: #fd1805;
 }
 
+.koledar label {
+    float: left;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
 
+.koledar label:not(:first-child) {
+    margin-top: 15px;
+}
 
+.koledar select option {
+    color: red;
+}
+
+.koledar input, .koledar select, .koledar .nalozi_btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px 10px;
+    border: solid 1px var(--border_color);
+    border-radius: var(--border_radius);
+    box-sizing: border-box;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.04);
+}
+
+.nalozi_btn_wrapper{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.koledar .nalozi_btn {
+    margin-top: 15px;
+    color: white;
+    background-color: var(--bg_color);
+}
+
+.koledar input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
