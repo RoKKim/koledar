@@ -20,13 +20,20 @@
         <label for="datum_input">Izbira datuma:</label>
         <input name="datum_input" id="datum_input"/>
 
+        <input type="file" id="file_selector">
+
         <div class="koledar_body">
             <div class="koledar_header">
-                <button type="button" id="prejsni_mesec">
+                <div class="koledar_header_top">
+                    <button type="button" id="zapri_koledar" class="zapri_koledar">
+                        <span>×</span>
+                    </button>
+                </div>
+                <button type="button" id="prejsni_mesec" class="mesec_navigacija">
                     <span>‹</span>
                 </button>
                 <div class="koledar_header_label"></div>
-                <button type="button" id="naslednji_mesec">
+                <button type="button" id="naslednji_mesec" class="mesec_navigacija">
                     <span>›</span>
                 </button>
             </div>

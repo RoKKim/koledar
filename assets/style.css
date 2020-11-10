@@ -15,27 +15,35 @@ body {
 }
 
 .koledar_body {
-    display: none;
+    display: block;
     outline: 0;
     width: 350px;
-    margin: 0 auto;
+    margin: 10px auto 0;
     border-radius: var(--border_radius);
     border: solid 1px var(--border_color);
 }
 
 .koledar .koledar_header {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     color: white;
-    padding: 20px;
+    padding: 10px;
     text-transform: uppercase;
     background-color: var(--bg_color);
     border-radius: var(--border_radius) var(--border_radius) 0 0;
 }
 
+.koledar .koledar_header_top {
+    flex-basis: 100%;
+}
+
+.koledar .koledar_header_zapri button {
+    margin-left: auto;
+}
+
 .koledar .koledar_header .koledar_header_label {
     font-size: 1.2rem;
-    width: 100%;
+    flex-grow: 1;
 }
 
 .koledar .koledar_header button {
@@ -45,6 +53,14 @@ body {
     border: 0;
     cursor: pointer;
     outline: 0;
+}
+
+.koledar .koledar_header .mesec_navigacija {
+    width: 20px;
+}
+
+.koledar .koledar_header .zapri_koledar {
+    float: right;
 }
 
 .koledar .koledar_teden {
@@ -75,7 +91,11 @@ body {
 }
 
 .koledar .koledar_datumi .datum_nedelja {
-    color: #fa6511;
+    color: #f0ae11;
+}
+
+.koledar .koledar_datumi .datum_praznik {
+    color: #fd1805;
 }
 
 
