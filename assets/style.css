@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --border_radius: 7px;
+    --border_color: #e7e9ed;
+    --danes_bg_color: #e7e9ed;
+    --danes_text_color: #333;
+    --bg_color: #e2791b;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    text-align: center;
+}
+
+.koledar {
+    width: 350px;
+    margin: 0 auto;
+    border-radius: var(--border_radius);
+    border: solid 1px var(--border_color);
+}
+
+.koledar .koledar_header {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    text-transform: uppercase;
+    background-color: var(--bg_color);
+    border-radius: var(--border_radius) var(--border_radius) 0 0;
+}
+
+.koledar .koledar_header .koledar_header_label {
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+.koledar .koledar_header button {
+    font-size: 1.4rem;
+    color: white;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.koledar .koledar_teden {
+    display: flex;
+    color: var(--bg_color);
+}
+
+.koledar .koledar_teden span {
+    align-items: center;
+    padding: 20px 0;
+    flex: 0 calc(100% / 7);
+}
+
+.koledar .koledar_datumi {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.koledar .koledar_datumi .datum {
+    align-items: center;
+    padding: 15px 0;
+    flex: 0 calc(100% / 7);
+    border-radius: var(--border_radius);
+}
+
+
