@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+    <title>Koledar</title>
 
     <link rel="stylesheet" type="text/css" href="./assets/style.css">
 </head>
@@ -18,7 +19,7 @@
 
         <label for="leto_input">Leto:</label>
         <input type="number" name="leto_input" id="leto_input" placeholder="Leto"/>
-        <p id="leto_input_invalid" class="invalid_message">Leto mora biti večje od 1000!</p>
+        <p id="leto_input_invalid" class="invalid_message">Leto mora biti podano v obliki yyyy!</p>
 
         <label for="datum_input">Izbira datuma:</label>
         <input name="datum_input" id="datum_input" placeholder="Izbira datuma"/>
@@ -29,7 +30,7 @@
             <input type="file" id="nalozi_btn">
         </div>
 
-        <div class="koledar_body">
+        <div id="koledar_body" class="koledar_body">
             <div class="koledar_header">
                 <div class="koledar_header_top">
                     <button type="button" id="zapri_koledar" class="zapri_koledar">
@@ -39,13 +40,13 @@
                 <button type="button" id="prejsni_mesec" class="mesec_navigacija">
                     <span>‹</span>
                 </button>
-                <div class="koledar_header_label"></div>
+                <div id="koledar_header_label" class="koledar_header_label"></div>
                 <button type="button" id="naslednji_mesec" class="mesec_navigacija">
                     <span>›</span>
                 </button>
             </div>
-            <div class="koledar_teden"></div>
-            <div class="koledar_datumi"></div>
+            <div id="koledar_teden" class="koledar_teden"></div>
+            <div id="koledar_datumi" class="koledar_datumi"></div>
         </div>
     </div>
 </div>
